@@ -2,6 +2,8 @@ import functools
 
 from bson import ObjectId
 
+import apymongo
+
 from tornado_reloaded.db import get_db
 
 class CriteriaContent(object):
@@ -61,11 +63,17 @@ class Criteria(object):
         """docstring for contribute_to_class"""
         for method_name in ('all', 'count', 'exists', 'find', 'first', 'last', 'collection', 'where', 'response_to_object', ):
             setattr(cls, method_name, CriteriaObject(self, method_name))
-            
+        
     def __call__(self, callback, *args, **kwargs):
         """docstring for __call__"""
         self.callback = callback
-        self.collection().find(spec=self.spec).loop(self.get_callback(self.multiple))
+        kwargs = {
+            'spec' : self.spec
+        }
+        if self.sort:
+            kwargs['sort'] = self.sort
+            
+        self.collection().find(**kwargs).loop(self.get_callback(self.multiple))
         
     def run_callback(self, response, multiple=True):
         """docstring for run_callback"""
@@ -80,6 +88,90 @@ class Criteria(object):
         """docstring for all"""
         self.multiple = True
         self.spec = {}
+        return self
+        
+    def all_in(self, **kwargs):
+        """docstring for all_in
+        # Match all people with Bond and 007 as aliases.
+        Person.all_in(aliases: [ "Bond", "007" ])
+        
+        # Mongodb
+        { "aliases" : { "$all" : [ "Bond", "007" ] }}
+        """
+        for kwarg, value in kwargs.items():
+            self.spec[kwarg] = {
+                '$all' : value
+            }
+        return self
+        
+    def all_of(self):
+        """docstring for all_of
+        MONGOID
+        # Match all crazy old people.
+        Person.all_of(:age.gt => 60, mental_state: "crazy mofos")
+        MONGODB QUERY SELECTOR
+        { "$and" : [{ "age" : { "$gt" : 60 }}, { "mental_state" : "crazy mofos" }] }
+        """
+        return self
+        
+    def also_in(self):
+        """docstring for also_in"""
+        return self
+        
+    def any_in(self):
+        """docstring for any_in"""
+        return self
+        
+    def any_of(self):
+        """docstring for any_of"""
+        return self
+        
+    def asc(self, *args):
+        """docstring for asc
+        Adds ascending sort options for the provided fields.
+        MONGOID
+        # Sort people by first and last name ascending.
+        Person.asc(:first_name, :last_name)
+        Person.ascending(:first_name, :last_name)
+        APYMONGO
+        sort = [('creationDate', apymongo.DESCENDING)])
+        MONGODB QUERY OPTIONS
+        { "sort" :
+            {[ [ "first_name", Mongo::ASCENDING ],
+              [ "last_name", Mongo::ASCENDING ] ]} }
+        """
+        for arg in args:
+            self.sort.append((arg, apymongo.ASCENDING))
+        return self
+        
+    def ascending(self, *args, **kwargs):
+        """docstring for ascending"""
+        return self.asc(*args, **kwargs)
+        
+    def desc(self, *args, **kwargs):
+        """docstring for desc"""
+        for arg in args:
+            self.sort.append((arg, apymongo.DESCENDING))
+        return self
+            
+    def descending(self, *args, **kwargs):
+        """docstring for desc"""
+        return self.desc(*args, **kwargs)
+        
+    def limit(self, *args, **kwargs):
+        """docstring for limit"""
+        return self
+        
+    def not_in(self, *args, **kwargs):
+        """docstring for not_in"""
+        return self
+        
+    def order_by(self, *args, **kwargs):
+        """docstring for order_by"""
+        return self
+        
+    def skip(self, *args, **kwargs):
+        """docstring for skip"""
         return self
             
     def collection(self):
