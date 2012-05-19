@@ -74,6 +74,10 @@ class RequestHandler(OriginalRequestHandler):
         to override ``write_error`` instead.
         """
         if status_code in (404, 400, 500, ):
+            if 'exc_info' in kwargs:
+                exc_info = kwargs.pop('exc_info')
+                logging.exception(exc_info[1])
+            
             self.render('%d.html' % (status_code, ))
         else:
             super(BaseHandler, self).write_error(status_code, **kwargs)
