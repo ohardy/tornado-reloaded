@@ -1,0 +1,3 @@
+title = u"{Project Name}"
+cookie_secret   =   u"13oVTzKXfgGaYdkL5gEmGeJJRuYh7EQnp3XdTP1o/V/="
+handlers = ['handler_list.handler_list']

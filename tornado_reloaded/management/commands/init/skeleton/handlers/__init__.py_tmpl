@@ -1,0 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# encoding: utf-8
+"""
+__init__.py
+
+Created by {Author Name} on {today}.
+Copyright (c) 2011 {Author Name}. All rights reserved.
+"""
+
+import homepage

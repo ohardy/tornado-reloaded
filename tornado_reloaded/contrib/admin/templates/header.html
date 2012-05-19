@@ -1,0 +1,24 @@
+{% autoescape None %}
+
+<div id="header">
+  <h1 id="site_title">Tornado Admin Depot</h1>
+  <ul class="header-item" id="tabs">
+      {% if handler.resource is None %}
+          {% set classes = ' class="current"' %}
+      {% else %}
+          {% set classes = '' %}
+      {% end %}
+      
+      <li{{ classes }} id="dashboard"><a href="/admin">Dashboard</a></li>
+      {% for resource in site.resources %}
+          {% if resource == handler.resource %}
+              {% set classes = ' class="current"' %}
+          {% else %}
+              {% set classes = '' %}
+          {% end %}
+          
+          <li{{ classes }} id="{{ resource.slug }}"><a href="{{ reverse_url('admin:resource:detail', resource.slug) }}">{{ _(resource.model.metadata.plural_name) }}</a></li>
+      {% end %}
+    </ul>
+    <p class="header-item" id="utility_nav"></p>
+</div>

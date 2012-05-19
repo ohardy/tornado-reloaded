@@ -1,0 +1,10 @@
+  <div class="user attributes_table" id="attributes_table_user_102">
+    <table border="0" cellspacing="0" cellpadding="0">
+        {% for row in partial.rows %}
+            <tr>
+              <th>{{ _(row.name) }}</th>
+              <td>{{ row.func(obj) }}</td>
+            </tr>
+        {% end %}
+    </table>
+  </div>

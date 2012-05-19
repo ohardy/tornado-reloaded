@@ -1,0 +1,42 @@
+This repository
+===============
+
+This repository contain a fork of Tornado who contains :
+- Support for mongodb as database
+- Support for redis as cache
+- Support common handlers like : account, sitemap, RSS feed
+- Extensible command line
+- Common UI methods
+- Async auth before call handler and async prepare call
+- Auth handlers
+- A lot of various, unused and bugy methods and code
+- Autoload of locale gettext
+- Make and compile gettext messages
+
+For mongodb, this fork require my fork of APYmongo (https://github.com/ohardy/APyMongo)
+
+After this fork is installed, go in empty folder and do:
+
+    tornado init
+    
+And after just do:
+
+    tornado runserver local
+    
+Open your browser on http://127.0.0.1:8888 and it's just work :)
+
+TODO
+====
+
+- More hooks for command (before run, after run ,etc.), so extensions can add features to existings commands
+- More commands to manage ruby on rails scaffolding like : new handler, admin, etc.
+- Active Admin like
+
+Related projects and forks
+==========================
+- https://github.com/ohardy/tornado-ztask
+- https://github.com/ohardy/tornado
+- https://github.com/ohardy/Tornado.tmbundle
+- https://github.com/ohardy/HTML5.tmbundle
+- https://github.com/ohardy/MongoHub-Mac
+- https://github.com/ohardy/APyMongo

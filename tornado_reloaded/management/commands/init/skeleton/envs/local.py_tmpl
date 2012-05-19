@@ -1,0 +1,4 @@
+listen = ["0.0.0.0:8888"]
+debug = True
+nb = 1
+server_name = "127.0.0.1"

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>{{ title }}</title>
+        <description>{{ description }}</description>
+        <link>{{ link }}</link>
+        {% if pub_date %}
+            <pubDate>{{ pub_date.strftime("%Y-%m-%d") }}</pubDate>
+        {% end %}
+        {% if last_build_date %}
+            <lastBuildDate>{{ last_build_date.strftime("%Y-%m-%d") }}</lastBuildDate>
+        {% end %}
+        {% if image %}
+            <image>{{ image }}</image>
+        {% end %}
+        {% if language %}
+            <language>{{ language }}</language>
+        {% end %}
+        {% for item in items %}
+            <item>
+                {% if item.item_title() %}
+                    <title>{{ item.item_title() }}</title>
+                {% end %}
+                {% if item.item_description() %}
+                    <description>{{ item.item_description() }}</description>
+                {% end %}
+                {% if item.item_pub_date() %}
+                    <pubDate>{{ item.item_pub_date().strftime("%a, %d %b %Y") }}</pubDate>
+                {% end %}
+                {% if item.item_link() %}
+                    <link>{{ item.item_link() }}</link>
+                {% end %}
+                {% if item.item_author() %}
+                    <author>{{ item.item_author() }}</author>
+                {% end %}
+                {% if item.item_guid() %}
+                    <guid>{{ item.item_guid() }}</guid>
+                {% end %}
+                {% if item.item_author() %}
+                    <author>{{ item.item_author() }}</author>
+                {% end %}
+                {% if item.item_comments() %}
+                    <comments>{{ item.item_comments() }}</comments>
+                {% end %}
+                
+            </item>
+        {% end %}
+    </channel>
+</rss>

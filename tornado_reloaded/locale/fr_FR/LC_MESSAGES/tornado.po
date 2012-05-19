@@ -1,0 +1,178 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-08 11:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: tornado/locale.py:244
+msgid "January"
+msgstr "Janvier"
+
+#: tornado/locale.py:244
+msgid "February"
+msgstr "Février"
+
+#: tornado/locale.py:244
+msgid "March"
+msgstr "Mars"
+
+#: tornado/locale.py:244
+msgid "April"
+msgstr "Avril"
+
+#: tornado/locale.py:245
+msgid "May"
+msgstr "Mai"
+
+#: tornado/locale.py:245
+msgid "June"
+msgstr "Juin"
+
+#: tornado/locale.py:245
+msgid "July"
+msgstr "Juillet"
+
+#: tornado/locale.py:245
+msgid "August"
+msgstr "Aout"
+
+#: tornado/locale.py:246
+msgid "September"
+msgstr "Septembre"
+
+#: tornado/locale.py:246
+msgid "October"
+msgstr "Octobre"
+
+#: tornado/locale.py:246
+msgid "November"
+msgstr "Novembre"
+
+#: tornado/locale.py:246
+msgid "December"
+msgstr "Décembre"
+
+#: tornado/locale.py:248
+msgid "Monday"
+msgstr "Lundi"
+
+#: tornado/locale.py:248
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: tornado/locale.py:248
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: tornado/locale.py:248
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: tornado/locale.py:249
+msgid "Friday"
+msgstr "Vendredi"
+
+#: tornado/locale.py:249
+msgid "Saturday"
+msgstr "Samedi"
+
+#: tornado/locale.py:249
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: tornado/locale.py:299
+msgid "1 second ago"
+msgstr "Il y à 1 seconde"
+
+#: tornado/locale.py:304
+msgid "1 minute ago"
+msgstr "Il y à 1 minute"
+
+#: tornado/locale.py:308
+msgid "1 hour ago"
+msgstr "Il y à 1 heure"
+
+#: tornado/locale.py:312
+#, python-format
+msgid "%(time)s"
+msgstr ""
+
+#: tornado/locale.py:315
+msgid "yesterday"
+msgstr "hier"
+
+#: tornado/locale.py:316
+#, python-format
+msgid "yesterday at %(time)s"
+msgstr "hier à %(time)s"
+
+#: tornado/locale.py:318
+#, python-format
+msgid "%(weekday)s"
+msgstr ""
+
+#: tornado/locale.py:319
+#, python-format
+msgid "%(weekday)s at %(time)s"
+msgstr "%(weekday)s à %(time)s"
+
+#: tornado/locale.py:321 tornado/locale.py:367
+#, python-format
+msgid "%(month_name)s %(day)s"
+msgstr "%(day)s %(month_name)s"
+
+#: tornado/locale.py:322
+#, python-format
+msgid "%(month_name)s %(day)s at %(time)s"
+msgstr "%(day)s %(month_name)s à %(time)s"
+
+#: tornado/locale.py:326
+#, python-format
+msgid "%(month_name)s %(year)s"
+msgstr "%(year)s %(month_name)s"
+
+#: tornado/locale.py:328
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s"
+msgstr "%(day)s %(month_name)s %(year)s"
+
+#: tornado/locale.py:330
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s at %(time)s"
+msgstr "%(day)s %(month_name)s %(year)s à %(time)s"
+
+#: tornado/locale.py:361
+#, python-format
+msgid "%(weekday)s, %(month_name)s %(day)s"
+msgstr "%(weekday)s %(day)s %(month_name)s"
+
+#: tornado/locale.py:382
+#, python-format
+msgid "%(commas)s and %(last)s"
+msgstr "%(commas)s et %(last)s"
+
+#: tornado/reloaded/handlers/account.py:180
+#: tornado/reloaded/handlers/account.py:182
+msgid "A valid email is required"
+msgstr "Un email valid est requis"
+
+#: tornado/reloaded/handlers/account.py:185
+msgid "You cant invite yourself"
+msgstr "Vous ne pouvez vous inviter vous même"
+
+#: tornado/reloaded/handlers/account.py:217
+msgid "You already send an invitation to this person"
+msgstr "Vous avez déjà envoyé une invitation à cette personne"

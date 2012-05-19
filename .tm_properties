@@ -1,0 +1,15 @@
+exclude = "{$exclude,var/log,var/run}"
+windowTitle      = "$TM_DISPLAYNAME — Tornado-reloaded"
+
+[ "templates/{**/,}*.html" ]
+fileType         = "text.html.tornado"
+
+[ "templates/{**/,}*" ]
+scopeAttributes      = 'attr.untitled'
+fileType         = "text.html.tornado"
+
+[ "handlers/{**/,}*.py" ]
+fileType         = "source.python.tornado"
+
+[ "static/js/{**/,}*.js" ]
+fileType         = "source.js.jquery"

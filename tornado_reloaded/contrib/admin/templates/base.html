@@ -1,0 +1,42 @@
+
+<!DOCTYPE html><html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Dashboard | Tornado Admin Depot</title>
+<link href="{{ static_url('css/base.css') }}" media="all" rel="stylesheet" type="text/css" />
+    <!--<script type="text/javascript" src="/javascripts/jquery.min.js?1327902932"></script>
+    <script type="text/javascript" src="/javascripts/jquery-ui.min.js?1327902932"></script>
+    <script type="text/javascript" src="/javascripts/jquery_ujs.js?1327902932"></script>
+    <script type="text/javascript" src="/javascripts/active_admin.js?1327902932"></script>-->
+<meta name="csrf-param" content="authenticity_token"/>
+<meta name="csrf-token" content="o9CEWt5UMLE4SdTx9lqAsTw45rzkJTyGSS7bxsHn5w8="/>  </head>
+  <body class="logged_in admin_dashboard index">
+    <div id="wrapper">
+        {% module HeaderModule() %}
+      <div id="title_bar">
+        <div id="titlebar_left">
+          <h2 id="page_title">Dashboard</h2>
+        </div>
+        <div id="titlebar_right"></div>
+      </div>
+
+      <div class="{% if handler.resource.sidebars %}with_sidebar{% else %}without_sidebar{% end %}" id="active_admin_content">
+        <div id="main_content_wrapper">
+          <div id="main_content">
+            {% block content %}
+                
+            {% end %}
+          </div>
+        </div>
+      </div>
+      {% block sidebar %}
+          
+      {% end %}
+      
+      <div id="footer">
+        <p>Powered by <a href="http://www.expeek.com">Tornado Admin</a> 0.4.0</p>
+      </div>
+    </div>
+  </body>
+</html>

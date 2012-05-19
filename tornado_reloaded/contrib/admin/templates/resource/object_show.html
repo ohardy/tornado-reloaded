@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block sidebar_class %}with_sidebar{% end %}
+
+{% block sidebar %}
+    {% if handler.resource.sidebars or handler.resource.filters %}
+        <div id="sidebar">
+            {% for sidebar in handler.resource.sidebars %}
+                {% set sidebar_content = handler.resource.content_for_sidebar(handler, sidebar, obj) %}
+                <div class="panel sidebar_section" id="customer details_sidebar_section">
+                    <h3>{{ _(sidebar.name) }}</h3>
+                    <div class="panel_contents">
+                        {% module PartialModule(obj, sidebar_content) %}
+                    </div>
+                </div>
+            {% end %}
+        </div>
+    {% end %}
+{% end %}
+
+
+{% block sidebar3 %}
+    <div id="sidebar">
+        <div class="panel sidebar_section" id="customer details_sidebar_section">
+            <h3>Customer Details</h3>
+            <div class="panel_contents">
+                  <div class="user attributes_table" id="attributes_table_user_65">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th>Username</th>
+                        <td>aubree63</td>
+                      </tr>
+                      <tr>
+                        <th>Email</th>
+                        <td>oran63@sporerweissnat.info</td>
+                      </tr>
+                      <tr>
+                        <th>Created At</th>
+                        <td>May 15, 2012 19:06</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+        </div>
+        <div class="panel sidebar_section" id="order history_sidebar_section">
+                <h3>Order History</h3>
+                <div class="panel_contents">
+                  <div class="user attributes_table" id="attributes_table_user_65">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th>Total Orders</th>
+                        <td>2</td>
+                      </tr>
+                      <tr>
+                        <th>Total Value</th>
+                        <td>$211.56</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+        </div>
+        <div class="panel sidebar_section" id="active admin demo_sidebar_section">
+                <h3>Active Admin Demo</h3>
+                <div class="panel_contents">This is the demo app for <a href="http://activeadmin.info">Active Admin</a>.
+    Don't hesitate to check out the
+    <a href="https://github.com/gregbell/demo.activeadmin.info/blob/master/app/admin/users.rb">source code for this page</a>,
+    the <a href="http://activeadmin.info/documentation.html">Documentation</a>
+    and the <a href="https://github.com/gregbell/active_admin">Github Repo</a>.
+                </div>
+        </div>
+    </div>
+          
+{% end %}
+
+
+{% block content %}
+    <div class="panel">
+        {{ obj['name'] }}
+        <h3>Order History</h3>
+        <div class="panel_contents">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <thead>
+                        <tr>
+                          <th class="">Order</th>
+                          <th class="">State</th>
+                          <th class="">Date</th>
+                          <th class="">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="odd" id="order_99">
+                          <td class=""><a href="/admin/orders/99">#99</a></td>
+                          <td class="">
+                            <span class="in_progress status">In Progress</span>
+                          </td>
+                          <td class=""></td>
+                          <td class="">$0.00</td>
+                        </tr>
+                        <tr class="even" id="order_147">
+                          <td class=""><a href="/admin/orders/147">#147</a></td>
+                          <td class="">
+                            <span class="in_progress status">In Progress</span>
+                          </td>
+                          <td class=""></td>
+                          <td class="">$0.00</td>
+                        </tr>
+                        <tr class="odd" id="order_273">
+                          <td class=""><a href="/admin/orders/273">#273</a></td>
+                          <td class="">
+                            <span class="complete status">Complete</span>
+                          </td>
+                          <td class="">May 15, 2012 19:06</td>
+                          <td class="">$68.53</td>
+                        </tr>
+                        <tr class="even" id="order_261">
+                          <td class=""><a href="/admin/orders/261">#261</a></td>
+                          <td class="">
+                            <span class="in_progress status">In Progress</span>
+                          </td>
+                          <td class=""></td>
+                          <td class="">$0.00</td>
+                        </tr>
+                        <tr class="odd" id="order_299">
+                          <td class=""><a href="/admin/orders/299">#299</a></td>
+                          <td class="">
+                            <span class="complete status">Complete</span>
+                          </td>
+                          <td class="">May 15, 2012 19:06</td>
+                          <td class="">$143.03</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+    <div class="comments panel user" id="active_admin_comments_for_user_65">
+        <h3>Comments (0)</h3>
+        <div class="panel_contents">
+            <span class="empty">No comments yet.</span>
+            <form accept-charset="UTF-8" action="/admin/comments" class="inline_form formtastic active_admin_comment" id="new_active_admin_comment" method="post" novalidate="novalidate">
+                <div style="margin:0;padding:0;display:inline">
+                    <input name="utf8" type="hidden" value="&#x2713;" />
+                    <input name="authenticity_token" type="hidden" value="o9CEWt5UMLE4SdTx9lqAsTw45rzkJTyGSS7bxsHn5w8=" />
+                </div>
+                <fieldset class="inputs">
+                    <ol>
+                        <li class="hidden input optional" id="active_admin_comment_resource_type_input">
+                            <input id="active_admin_comment_resource_type" name="active_admin_comment[resource_type]" type="hidden" value="User" />
+                        </li>
+                        <li class="hidden input required" id="active_admin_comment_resource_id_input">
+                            <input id="active_admin_comment_resource_id" name="active_admin_comment[resource_id]" type="hidden" value="65" />
+                        </li>
+                        <li class="text input required" id="active_admin_comment_body_input">
+                            <textarea cols="80" id="active_admin_comment_body" name="active_admin_comment[body]" rows="8"></textarea>
+                        </li>
+                    </ol>
+                </fieldset>
+                <fieldset class="buttons">
+                    <ol>
+                        <li class="commit button">
+                            <input class="create" id="active_admin_comment_submit" name="commit" type="submit" value="Add Comment" />
+                        </li>
+                    </ol>
+                </fieldset>
+            </form>
+        </div>
+{% end %}
+
