@@ -52,6 +52,7 @@ class Criteria(object):
         self.multiple = True
         self.only_first = False
         self.only_last = False
+        self.sort = []
         if criteria_content is not None and callable(query):
             criteria_content = criteria_content(model)
         
