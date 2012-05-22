@@ -110,6 +110,7 @@ class AdminResource(object):
 class SiteAdmin(object):
     resources_by_model = {}
     resources_by_slug = {}
+    _resources = []
     dashboard = None
     
     def register(self, model_name, Resource=AdminResource):
@@ -129,6 +130,7 @@ class SiteAdmin(object):
         resource = Resource(model)
         self.resources_by_model[model] = resource
         self.resources_by_slug[resource.slug] = resource
+        self._resources.append(resource)
         
     def unregister(self, model):
         """docstring for unregister"""
@@ -148,7 +150,7 @@ class SiteAdmin(object):
     @property
     def resources(self):
         """docstring for resources"""
-        return self.resources_by_model.values()
+        return self._resources
     
     
 site = SiteAdmin()
