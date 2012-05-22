@@ -4,36 +4,43 @@
 {% block sidebar %}
     {% if handler.resource.sidebars or handler.resource.filters %}
         <div id="sidebar">
-            <div class="panel sidebar_section" id="filters_sidebar_section">
-                <h3>Filters</h3>
-                <div class="panel_contents">
-                    <form accept-charset="UTF-8" action="{{ reverse_url('admin:resource:detail', handler.resource.slug) }}" class="filter_form" id="q_search" method="get">
-                        <div style="margin:0;padding:0;display:inline">
-                            <input name="utf8" type="hidden" value="&#x2713;" />
-                        </div>
-                        <div class="filter_form_field filter_string">
-                            <label class=" label" for="q_username">Search Username</label>
-                            <input id="q_username" name="q[username_contains]" type="text" />
-                        </div>
-                        <div class="filter_form_field filter_string">
-                            <label class=" label" for="q_email">Search Email</label>
-                            <input id="q_email" name="q[email_contains]" type="text" />
-                        </div>
-                        <div class="filter_form_field filter_date_range">
-                            <label class=" label" for="q_created_at_gte">Created at</label>
-                            <input class="datepicker" id="q_created_at_gte" max="10" name="q[created_at_gte]" size="12" type="text" value="" />
-                            <span class="seperator">-</span>
-                            <input class="datepicker" id="q_created_at_lte" max="10" name="q[created_at_lte]" size="12" type="text" value="" />
-                        </div>
-                        <div class="buttons">
-                            <input id="q_submit" name="commit" type="submit" value="Filter" />
-                            <a href="#" class="clear_filters_btn">Clear Filters</a>
-                            <input id="order" name="order" type="hidden" value="id_desc" />
-                            <input id="scope" name="scope" type="hidden" />
-                        </div>
-                    </form>
+            {% if handler.resource.filters %}
+                <div class="panel sidebar_section" id="filters_sidebar_section">
+                    <h3>Filters</h3>
+                    <div class="panel_contents">
+                        <form accept-charset="UTF-8" action="{{ reverse_url('admin:resource:detail', handler.resource.slug) }}" class="filter_form" id="q_search" method="get">
+                            <div style="margin:0;padding:0;display:inline">
+                                <input name="utf8" type="hidden" value="&#x2713;" />
+                            </div>
+                            {% for filter in handler.resource.filters %}
+                                <div class="filter_form_field filter_string">
+                                    <label class="label" for="q_username">Search {{ filter }}</label>
+                                    <input id="q_{{ filter }}" name="q[{{ filter }}_contains]" type="text" />
+                                </div>
+                            {% end %}
+                            {% if 0 %}
+                                <div class="filter_form_field filter_string">
+                                    <label class=" label" for="q_email">Search Email</label>
+                                    <input id="q_email" name="q[email_contains]" type="text" />
+                                </div>
+                                <div class="filter_form_field filter_date_range">
+                                    <label class=" label" for="q_created_at_gte">Created at</label>
+                                    <input class="datepicker" id="q_created_at_gte" max="10" name="q[created_at_gte]" size="12" type="text" value="" />
+                                    <span class="seperator">-</span>
+                                    <input class="datepicker" id="q_created_at_lte" max="10" name="q[created_at_lte]" size="12" type="text" value="" />
+                                </div>
+                            {% end %}
+                            <div class="buttons">
+                                <input id="q_submit" name="commit" type="submit" value="Filter" />
+                                <a href="#" class="clear_filters_btn">Clear Filters</a>
+                                <input id="order" name="order" type="hidden" value="id_desc" />
+                                <input id="scope" name="scope" type="hidden" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            {% end %}
+            
             {% for sidebar in handler.resource.sidebars %}
                 {% set sidebar_content = handler.resource.content_for_sidebar(handler, sidebar, objects) %}
                 
@@ -92,7 +99,17 @@
                                 {{ handler.resource.content_for_column(handler, column, obj) }}
                             </td>
                         {% end %}
-                        <td class=""><a href="{{ reverse_url('admin:resource:detail:object', handler.resource.slug, obj.pk) }}" class="member_link view_link">View</a><a href="{{ reverse_url('admin:resource:detail:object:edit', handler.resource.slug, obj.pk) }}" class="member_link edit_link">Edit</a><a href="{{ reverse_url('admin:resource:detail:object:delete', handler.resource.slug, obj.pk) }}" class="member_link delete_link" data-confirm="Are you sure you want to delete this?" data-method="delete" rel="nofollow">Delete</a></td>
+                        <td class="">
+                            {% if 'show' in handler.resource.actions %}
+                                <a href="{{ reverse_url('admin:resource:detail:object', handler.resource.slug, obj.pk) }}" class="member_link view_link">View</a>
+                            {% end %}
+                            {% if 'edit' in handler.resource.actions %}
+                                <a href="{{ reverse_url('admin:resource:detail:object:edit', handler.resource.slug, obj.pk) }}" class="member_link edit_link">Edit</a>
+                            {% end %}
+                            {% if 'delete' in handler.resource.actions %}
+                                <a href="{{ reverse_url('admin:resource:detail:object:delete', handler.resource.slug, obj.pk) }}" class="member_link delete_link" data-confirm="Are you sure you want to delete this?" data-method="delete" rel="nofollow">Delete</a>
+                            {% end %}
+                        </td>
                       </tr>
                   {% end %}
               </tbody>

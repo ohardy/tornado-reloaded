@@ -11,6 +11,7 @@ import os
 # from tornado_reloaded.contrib.admin.utils import column
 # from tornado_reloaded.contrib.admin.utils import panel
 from tornado_reloaded.db.orm.documents import loading
+from tornado_reloaded.utils import _
 
 # from tornado_reloaded.contrib.admin.modules import AttributesTableForModule
 
@@ -26,9 +27,22 @@ class Column(object):
         
 class Panel(object):
     """docstring for Panel"""
-    def __init__(self, name, uid):
-        self.name = name
-        self.uid = uid
+    def __init__(self, uid):
+        self.uid      = uid
+        self.name     = uid.capitalize()
+        self.children = []
+        
+class TableFor(object):
+    """docstring for AttributesTableFor"""
+    template = 'partial/table_for.html'
+    def __init__(self, hander, obj, columns):
+        self.hander = hander
+        self.obj = obj
+        self.columns = columns
+        
+    def render(self, handler):
+        """docstring for render"""
+        return 'AttributesTableFor.render'
 
 class AttributesTableFor(object):
     """docstring for AttributesTableFor"""
@@ -56,16 +70,43 @@ class Row(object):
         self.name = name
         self.func = func
         
+        
+# show :title => :username do
+#           panel "Order History" do
+#             table_for(customer.orders) do
+#               column("Order", :sortable => :id) {|order| link_to "##{order.id}", admin_order_path(order) }
+#               column("State")                   {|order| status_tag(order.state) }
+#               column("Date", :sortable => :checked_out_at){|order| pretty_format(order.checked_out_at) }
+#               column("Total")                   {|order| number_to_currency order.total_price }
+#             end
+#           end
+#           active_admin_comments
+#         end
+        
 
 class AdminResource(object):
     actions = ('index', 'edit', 'show', 'delete', )
-    filters = ('_id', )
+    filters = ()
     scopes = ()
     sidebars = ()
     
     index_columns = (
         Column('ID', '_id', sortable='_id', uid='_id'),
     )
+    
+    show_panels = ()
+    
+    def _get_panels_for_show(self, handler, obj=None):
+        """docstring for _get_panel_for_show"""
+        panels = []
+        for panel in self.show_panels:
+            panels.append(self.panel_for_show(Panel(panel), handler, obj))
+            
+        return panels
+    
+    def panel_for_show(self, panel, handler, obj=None):
+        """docstring for show_panel"""
+        pass
     
     def __init__(self, model):
         """docstring for __init__"""

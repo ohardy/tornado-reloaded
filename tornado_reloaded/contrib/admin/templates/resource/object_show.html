@@ -75,93 +75,45 @@
 
 {% block content %}
     <div class="panel">
-        {{ obj['name'] }}
-        <h3>Order History</h3>
-        <div class="panel_contents">
-                    <table border="0" cellspacing="0" cellpadding="0">
-                      <thead>
-                        <tr>
-                          <th class="">Order</th>
-                          <th class="">State</th>
-                          <th class="">Date</th>
-                          <th class="">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="odd" id="order_99">
-                          <td class=""><a href="/admin/orders/99">#99</a></td>
-                          <td class="">
-                            <span class="in_progress status">In Progress</span>
-                          </td>
-                          <td class=""></td>
-                          <td class="">$0.00</td>
-                        </tr>
-                        <tr class="even" id="order_147">
-                          <td class=""><a href="/admin/orders/147">#147</a></td>
-                          <td class="">
-                            <span class="in_progress status">In Progress</span>
-                          </td>
-                          <td class=""></td>
-                          <td class="">$0.00</td>
-                        </tr>
-                        <tr class="odd" id="order_273">
-                          <td class=""><a href="/admin/orders/273">#273</a></td>
-                          <td class="">
-                            <span class="complete status">Complete</span>
-                          </td>
-                          <td class="">May 15, 2012 19:06</td>
-                          <td class="">$68.53</td>
-                        </tr>
-                        <tr class="even" id="order_261">
-                          <td class=""><a href="/admin/orders/261">#261</a></td>
-                          <td class="">
-                            <span class="in_progress status">In Progress</span>
-                          </td>
-                          <td class=""></td>
-                          <td class="">$0.00</td>
-                        </tr>
-                        <tr class="odd" id="order_299">
-                          <td class=""><a href="/admin/orders/299">#299</a></td>
-                          <td class="">
-                            <span class="complete status">Complete</span>
-                          </td>
-                          <td class="">May 15, 2012 19:06</td>
-                          <td class="">$143.03</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-    <div class="comments panel user" id="active_admin_comments_for_user_65">
-        <h3>Comments (0)</h3>
-        <div class="panel_contents">
-            <span class="empty">No comments yet.</span>
-            <form accept-charset="UTF-8" action="/admin/comments" class="inline_form formtastic active_admin_comment" id="new_active_admin_comment" method="post" novalidate="novalidate">
-                <div style="margin:0;padding:0;display:inline">
-                    <input name="utf8" type="hidden" value="&#x2713;" />
-                    <input name="authenticity_token" type="hidden" value="o9CEWt5UMLE4SdTx9lqAsTw45rzkJTyGSS7bxsHn5w8=" />
-                </div>
-                <fieldset class="inputs">
-                    <ol>
-                        <li class="hidden input optional" id="active_admin_comment_resource_type_input">
-                            <input id="active_admin_comment_resource_type" name="active_admin_comment[resource_type]" type="hidden" value="User" />
-                        </li>
-                        <li class="hidden input required" id="active_admin_comment_resource_id_input">
-                            <input id="active_admin_comment_resource_id" name="active_admin_comment[resource_id]" type="hidden" value="65" />
-                        </li>
-                        <li class="text input required" id="active_admin_comment_body_input">
-                            <textarea cols="80" id="active_admin_comment_body" name="active_admin_comment[body]" rows="8"></textarea>
-                        </li>
-                    </ol>
-                </fieldset>
-                <fieldset class="buttons">
-                    <ol>
-                        <li class="commit button">
-                            <input class="create" id="active_admin_comment_submit" name="commit" type="submit" value="Add Comment" />
-                        </li>
-                    </ol>
-                </fieldset>
-            </form>
-        </div>
+        {% for panel in handler.resource._get_panels_for_show(handler, obj) %}
+            <h3>{{ panel.name }}</h3>
+            <div class="panel_contents">
+                {% module PartialModule(obj, panel.children[0]) %}
+            </div>
+            
+        {% end %}
+    {% if 0 %}
+        <div class="comments panel user" id="active_admin_comments_for_user_65">
+            <h3>Comments (0)</h3>
+            <div class="panel_contents">
+                <span class="empty">No comments yet.</span>
+                <form accept-charset="UTF-8" action="/admin/comments" class="inline_form formtastic active_admin_comment" id="new_active_admin_comment" method="post" novalidate="novalidate">
+                    <div style="margin:0;padding:0;display:inline">
+                        <input name="utf8" type="hidden" value="&#x2713;" />
+                        <input name="authenticity_token" type="hidden" value="o9CEWt5UMLE4SdTx9lqAsTw45rzkJTyGSS7bxsHn5w8=" />
+                    </div>
+                    <fieldset class="inputs">
+                        <ol>
+                            <li class="hidden input optional" id="active_admin_comment_resource_type_input">
+                                <input id="active_admin_comment_resource_type" name="active_admin_comment[resource_type]" type="hidden" value="User" />
+                            </li>
+                            <li class="hidden input required" id="active_admin_comment_resource_id_input">
+                                <input id="active_admin_comment_resource_id" name="active_admin_comment[resource_id]" type="hidden" value="65" />
+                            </li>
+                            <li class="text input required" id="active_admin_comment_body_input">
+                                <textarea cols="80" id="active_admin_comment_body" name="active_admin_comment[body]" rows="8"></textarea>
+                            </li>
+                        </ol>
+                    </fieldset>
+                    <fieldset class="buttons">
+                        <ol>
+                            <li class="commit button">
+                                <input class="create" id="active_admin_comment_submit" name="commit" type="submit" value="Add Comment" />
+                            </li>
+                        </ol>
+                    </fieldset>
+                </form>
+            </div>
+    {% end %}
 {% end %}
 

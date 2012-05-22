@@ -21,7 +21,7 @@
         <div id="titlebar_right"></div>
       </div>
 
-      <div class="{% if handler.resource and handler.resource.sidebars %}with_sidebar{% else %}without_sidebar{% end %}" id="active_admin_content">
+      <div class="{% if handler.resource and handler.resource.sidebars or (handler.action == 'index' and handler.resource.filters) %}with_sidebar{% else %}without_sidebar{% end %}" id="active_admin_content">
         <div id="main_content_wrapper">
           <div id="main_content">
             {% block content %}

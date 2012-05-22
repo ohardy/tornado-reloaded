@@ -19,7 +19,7 @@ class ActiveHandler:
     active_menu_item = 'resource'
 
 class ResourceDetailHandler(ActiveHandler, BaseHandler):
-    
+    action = 'index'
     @is_superuser
     @tornado.web.asynchronous
     @gen.engine
@@ -28,10 +28,10 @@ class ResourceDetailHandler(ActiveHandler, BaseHandler):
         Document = self.get_document_class(self.resource.model)
         objects = yield gen.Task(Document.all())
 
-        self.render('resource/detail.html', objects=objects)
+        self.render('resource/index.html', objects=objects)
 
 class ResourceObjectShowHandler(ActiveHandler, BaseHandler):
-    
+    action = 'show'
     @is_superuser
     @tornado.web.asynchronous
     @gen.engine

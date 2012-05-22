@@ -16,6 +16,7 @@ class ActiveHandler:
     active_menu_item = 'dashboard'
 
 class IndexHandler(ActiveHandler, BaseHandler):
+    action = 'dashboard'
     # @tornado.web.asynchronous
     # @gen.engine
     def get(self):
