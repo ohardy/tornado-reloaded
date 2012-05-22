@@ -43,12 +43,13 @@
             
             {% for sidebar in handler.resource.sidebars %}
                 {% set sidebar_content = handler.resource.content_for_sidebar(handler, sidebar, objects) %}
-                
-                <div class="panel sidebar_section" id="active admin demo_sidebar_section">
-                    <h3>Active Admin Demo</h3>
-                    <div class="panel_contents">This is the demo app for <a href="http://activeadmin.info">Active Admin</a>.Don't hesitate to check out the <a href="https://github.com/gregbell/demo.activeadmin.info/blob/master/app/admin/users.rb">source code for this page</a>, the <a href="http://activeadmin.info/documentation.html">Documentation</a> and the <a href="https://github.com/gregbell/active_admin">Github Repo</a>.
+                {% if 0 %}
+                    <div class="panel sidebar_section" id="active admin demo_sidebar_section">
+                        <h3>Active Admin Demo</h3>
+                        <div class="panel_contents">This is the demo app for <a href="http://activeadmin.info">Active Admin</a>.Don't hesitate to check out the <a href="https://github.com/gregbell/demo.activeadmin.info/blob/master/app/admin/users.rb">source code for this page</a>, the <a href="http://activeadmin.info/documentation.html">Documentation</a> and the <a href="https://github.com/gregbell/active_admin">Github Repo</a>.
+                        </div>
                     </div>
-                </div>
+                {% end %}
             {% end %}
         </div>
     {% end %}
