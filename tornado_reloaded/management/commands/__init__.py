@@ -13,6 +13,7 @@ import init
 import makemessages
 import compilemessages
 import new
+import account
 # import generate
 
 import pkg_resources

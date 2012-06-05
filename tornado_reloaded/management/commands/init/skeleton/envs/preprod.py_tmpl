@@ -1,0 +1,15 @@
+absolute_base_url = "{Domain splitted}.next.fuwui.com"
+server_name       = "{Domain splitted}.next.fuwui.com"
+default_host      = "{Domain splitted}.next.fuwui.com"
+debug             = False
+nb                = 1
+admin_emails      = ["ohardy@me.com"]
+admin_auth        = False
+databases = {{
+    "default": {{
+        "backend"       : "mongodb",
+        "database_name" : "{Database name}"
+    }}
+}}
+
+

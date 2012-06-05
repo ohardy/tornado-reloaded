@@ -21,8 +21,10 @@ class BasicModule(Skeleton):
     variables = [
         Var('Project Name'),
         Var('Author Name'),
+        Var('Database name'),
+        Var('Domain splitted'),
         # Var('Author Email'),
-        Var('cookie_secret'),
+        Var('Cookie secret'),
         Var('today')
     ]
 
@@ -33,6 +35,6 @@ class InitCommand(Command):
     def handle(self):
         """docstring for handle"""
         basic_module = BasicModule()
-        basic_module['cookie_secret'] = gen_cookie_secret()
+        basic_module['Cookie secret'] = gen_cookie_secret()
         basic_module['today'] = datetime.now().strftime('%Y-%m-%d')
         basic_module.run(os.getcwd())

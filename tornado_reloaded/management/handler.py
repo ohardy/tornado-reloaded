@@ -54,7 +54,8 @@ class ManagementUtility(object):
         if os.path.exists(path):
             envs = os.listdir(path)
             for e in envs:
-                new_envs.append(os.path.splitext(e)[0])
+                if e not in ('__init__.py', ):
+                    new_envs.append(os.path.splitext(e)[0])
         
         return new_envs
     
@@ -168,6 +169,8 @@ class ManagementUtility(object):
         kwargs   = vars(result)
         
         env = kwargs.pop('env', None)
+        if env is None:
+            env = os.environ.get('TORNADO_ENV', None)
         if env is not None:
             options['env'].set(unicode(env))
         

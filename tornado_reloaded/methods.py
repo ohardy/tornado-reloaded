@@ -18,13 +18,15 @@ import tornado.escape
 import unicodedata
 
 from tornado.options import options
+from tornado.web import async
+from tornado.web import with_handler
 
 ALPHABET = string.ascii_uppercase + string.ascii_lowercase + string.digits + '-_'
 ALPHABET_REVERSE = dict((c, i) for (i, c) in enumerate(ALPHABET))
 BASE = len(ALPHABET)
 SIGN_CHARACTER = '$'
 
-def html_input(handler, name, value="", input_type="text", label=None, with_p=True):
+def html_input(name, value="", input_type="text", label=None, with_p=True):
     """docstring for html_input"""
     string = '<input type="%(input_type)s" name="%(name)s" id="id_%(name)s" value="%(value)s" />'
     string = string % {
@@ -46,14 +48,15 @@ def html_input(handler, name, value="", input_type="text", label=None, with_p=Tr
     
     return '%s%s' % (label_string, string, )
 
-def absolute_url(handler, url, https=False):
+def absolute_url(url, https=False):
     """docstring for absolute_url"""
     return u"%s%s%s" % (https and 'https://' or 'http://', options.absolute_base_url, url)
 
-def invitation_enabled(handler):
+def invitation_enabled():
 	"""docstring for invitation_enabled"""
 	return options.invitation_enabled
 
+@with_handler
 def get_active_class(handler, with_var):
     """docstring for get_active_class"""
     active_menu_item = getattr(handler, 'active_menu_item', '')
@@ -62,7 +65,8 @@ def get_active_class(handler, with_var):
         return ' class="active"'
     
     return ''
-    
+
+@with_handler
 def get_only_active_class(handler, with_var):
     """docstring for get_active_class"""
     active_menu_item = getattr(handler, 'active_menu_item', '')
@@ -72,7 +76,7 @@ def get_only_active_class(handler, with_var):
     
     return ''
 
-def int_to_short_id(handler, number):
+def int_to_short_id(number):
     if number < 0:
         return SIGN_CHARACTER + int_to_short_id(-number)
     s = []
@@ -83,7 +87,7 @@ def int_to_short_id(handler, number):
     return ''.join(reversed(s))
 
 
-def short_id_to_int(handler, s):
+def short_id_to_int(s):
     if s[0] == SIGN_CHARACTER:
         return -short_id_to_int(s[1:])
     n = 0
@@ -91,18 +95,18 @@ def short_id_to_int(handler, s):
         n = n * BASE + ALPHABET_REVERSE[c]
     return n
 
-def short_id_to_uuid(handler, s):
-    return uuid.UUID(int=short_id_to_int(handler, s))
+def short_id_to_uuid(s):
+    return uuid.UUID(int=short_id_to_int(s))
 
-def get_short_id(handler):
-    return int_to_short_id(handler, uuid.uuid4().int)
+def get_short_id():
+    return int_to_short_id(uuid.uuid4().int)
 
-def unslugify(handler, value):
+def unslugify(value):
     """docstring for unslugify"""
     value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
     return value.replace('-', ' ')
 
-def slugify(handler, value):
+def slugify(value):
     """
     From Django
     Normalizes string, converts to lowercase, removes non-alpha characters,
@@ -112,29 +116,34 @@ def slugify(handler, value):
     value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
     return re.sub('[-\s]+', '-', value)
 
-def remove_whitespaces(handler, value):
+def remove_whitespaces(value):
     return value.replace(" ", "")
 
-def protect_email(handler, value):
+def protect_email(value):
     """docstring for protect_email"""
     return value.replace("@", "(at)")
 
-def url_escape(handler, value):
+def url_escape(value):
     """docstring for url_escape"""
     return tornado.escape.url_escape(value)
 
-def escape(handler, value):
+def escape(value):
     if not isinstance(value, basestring):
         value = unicode(value)
     return tornado.escape.xhtml_escape(value)
 
-def linebreaks_to_html(handler, value):
+@async
+@with_handler
+def toto(handler, callback):
+    handler.db.users.find(spec={})(callback)
+
+def linebreaks_to_html(value):
     """docstring for linebreaks_to_html"""
     return value.replace("\n","<br />\n")
 
-def format_phone(handler, number):
+def format_phone(number):
     """docstring for format_phone"""
-    number = str(remove_whitespaces(handler, number))
+    number = str(remove_whitespaces(number))
     new_phone = ""
     if number.startswith("+"):
         next = 4
@@ -148,7 +157,7 @@ def format_phone(handler, number):
         i += 2
     return new_phone
 
-def remove_tags(handler, value, tags):
+def remove_tags(value, tags):
     """docstring for fname"""
     if isinstance(tags, basestring):
         tags = [re.escape(tag) for tag in tags.split()]
@@ -163,7 +172,7 @@ def remove_tags(handler, value, tags):
     return value
 
 #TODO : Add parameters : allowed_attributes and allowed_elements
-def sanitize_html(handler, html, acceptable_elements=[], acceptable_attributes=[]):
+def sanitize_html(html, acceptable_elements=[], acceptable_attributes=[]):
     """Sanitizes an HTML fragment."""
     
     if isinstance(acceptable_elements, basestring):
@@ -262,12 +271,12 @@ def sanitize_html(handler, html, acceptable_elements=[], acceptable_attributes=[
     output_generator = s.serialize(stream)
     return u''.join(output_generator)
 
-def keep_tags(handler, value, tags):
+def keep_tags(value, tags):
     """docstring for fname"""
     
-    return sanitize_html(handler, value, tags)
+    return sanitize_html(value, tags)
 
-def calculate_age(handler, born):
+def calculate_age(born):
     #Base from : http://stackoverflow.com/a/2259711
     today = date.today()
     if isinstance(born, datetime):

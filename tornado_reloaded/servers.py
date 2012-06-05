@@ -19,6 +19,7 @@ import tornado.ioloop
 from tornado.options import options
 
 import tornado_reloaded.methods as tornado_reloaded_methods
+import tornado_reloaded.modules as tornado_reloaded_modules
 from applications import Application
 
 from tornado_reloaded.utils import get_module_from_import
@@ -47,7 +48,8 @@ def runserver(*args, **kwargs):
             modules_module = get_module_from_import(modules_module_name)
             modules.append(modules_module)
         
-        methods.append(tornado_reloaded_methods)
+        methods.insert(0, tornado_reloaded_methods)
+        modules.insert(0, tornado_reloaded_modules)
         
         application = Application(
             handlers      = handlers,

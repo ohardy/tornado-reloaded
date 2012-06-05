@@ -9,6 +9,7 @@ Copyright (c) 2011 Olivier Hardy. All rights reserved.
 """
 
 import os
+import sys
 import mimetypes
 import threading
 import datetime
@@ -73,12 +74,74 @@ class RequestHandler(OriginalRequestHandler):
         Users of ``get_error_html`` are encouraged to convert their code
         to override ``write_error`` instead.
         """
+        from error import _get_frames
+        from error import _get_response_output
+        from error import _get_response_headers
+        from error import prettify
+        from error import dicttable
+        from error import dicttable_items
+        import urlparse
         if status_code in (404, 400, 500, ):
             if 'exc_info' in kwargs:
-                exc_info = kwargs.pop('exc_info')
+                exc_info = kwargs['exc_info']
                 logging.exception(exc_info[1])
+                
+            handler = self
+            exception_type, exception_value, tback = exc_info
+            is_debug = False
+            #isinstance(exception_value, DebugBreakException)
+    
+            frames = _get_frames(tback, is_debug)
+            frames.reverse()
+    
+            if is_debug:
+                exception_type = 'Debug breakpoint'
+                exception_value = ''
+        
+            urljoin = urlparse.urljoin
+            import pprint
+    
+            params = {
+                'exception_type': exception_type,
+                'exception_value': exception_value,
+                'frames': frames,
+        
+                'request_input': handler.request.body,
+                'request_cookies': handler.cookies,
+                'request_headers': handler.request.headers,
+        
+                'request_path': handler.request.uri,
+                'request_method': handler.request.method,
+                'response_output': _get_response_output(handler),
+                'response_headers': _get_response_headers(handler),
+        
+                'dict': dict,
+                'str': str,
+                'prettify': prettify,
+                'dicttable': dicttable,
+                'dicttable_items': dicttable_items,
+                'is_email': False,
+                'pprint': pprint.pformat,
+                'settings': self.application.settings,
+                'sys_path': sys.path,
+                'sys_executable': sys.executable,
+                'sys_version': sys.version,
+                'server_time': datetime.datetime.now(),
+                'tornado_version': tornado.version,
+                'lastframe': frames[-1],
+            }
+            kwargs.update(params)
             
-            self.render('%d.html' % (status_code, ))
+                
+            # try:
+                # raise Exception()
+                # self.render('%d.html' % (status_code, ), status_code=status_code, **kwargs)
+            # except Exception as ef:
+                # print 'EF : ', ef
+                # try:
+            self.render(os.path.join(os.path.dirname(__file__), 'templates/errors/technical.html'), status_code=status_code, **kwargs)
+                # except Exception as e:
+                    # print 'E : ', e
         else:
             super(BaseHandler, self).write_error(status_code, **kwargs)
     
@@ -240,6 +303,20 @@ class RequestHandler(OriginalRequestHandler):
 
         self.clear_all_cookies()
         callback(AnonymousUser())
+        
+class ErrorHandler(RequestHandler):
+    """docstring for ErrorHandler"""
+    def initialize(self, status_code):
+        self.set_status(status_code)
+
+    def prepare(self, callback):
+        if self.settings.get('debug', False):
+            self.render(os.path.join(os.path.dirname(__file__), 'templates/errors/404.html'))
+            callback()
+            # self.render('%s.html' % (self._status_code, ), handlers=self.application.handlers)
+        else:
+            raise HTTPError(self._status_code)
+        
 
 class StaticFileHandler(OriginalStaticFileHandler):
     """A simple handler that can serve static content from a directory.

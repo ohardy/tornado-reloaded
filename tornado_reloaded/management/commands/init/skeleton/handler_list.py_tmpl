@@ -9,9 +9,12 @@ Copyright (c) 2011 {Author Name}. All rights reserved.
 """
 
 from tornado.web import url
+from tornado.web import i18n_url
 
+import models
+import admin
 import handlers
 
 handler_list = [
-    url(r"^/$",                                    handlers.homepage.IndexHandler,       name="homepage"),
+    url(r"^$",                                    handlers.homepage.IndexHandler,       name="homepage:index"),
 ]

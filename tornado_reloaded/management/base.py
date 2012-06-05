@@ -10,6 +10,7 @@ Copyright (c) 2011 Olivier Hardy. All rights reserved.
 
 import sys
 import re
+import os
 import argparse
 from itertools import izip
 from bisect import bisect
@@ -64,7 +65,7 @@ class Command(object):
     def _add_arguments(self, management_utility, subparser):
         """docstring for add_arguments"""
         if self.require_env:
-            subparser.add_argument('env', choices=management_utility.get_envs())
+            subparser.add_argument('--env', choices=management_utility.get_envs())
         
         self.add_arguments(subparser)
     

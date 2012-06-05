@@ -1,4 +1,6 @@
-listen = ["0.0.0.0:8888"]
-debug = True
-nb = 1
-server_name = "127.0.0.1"
+absolute_base_url = "127.0.0.1:8888"
+listen            = ["0.0.0.0:8888"]
+debug             = True
+server_name       = "127.0.0.1"
+default_host      = "127.0.0.1:8888"
+nb                = 1

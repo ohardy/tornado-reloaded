@@ -1,3 +1,21 @@
-title = u"{Project Name}"
-cookie_secret   =   u"13oVTzKXfgGaYdkL5gEmGeJJRuYh7EQnp3XdTP1o/V/="
+title           = u"{Project Name}"
+cookie_secret   = u"{Cookie secret}"
+
+databases = {{
+    'default': {{
+        'backend' : 'mongodb',
+        'database_name' : '{Database name}'
+    }}
+}}
+
+caches = {{
+    'default': {{
+        'backend' : 'redis'
+    }}
+}}
+
+debug_ips = ["82.247.91.222", "127.0.0.1"]
+
+methods  = ['methods']
+modules  = ['modules']
 handlers = ['handler_list.handler_list']

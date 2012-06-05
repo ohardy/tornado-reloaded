@@ -15,6 +15,7 @@ import tornado.web
 from tornado.options import define
 from tornado.options import options
 from tornado import locale
+from tornado_reloaded.web import ErrorHandler 
 
 from db import get_db
 
@@ -50,6 +51,10 @@ class Application(tornado.web.Application):
         
         self._condition = Condition()
         self._db        = None
+    
+    def get_error_handler_class(self):
+        """docstring for get_error"""
+        return ErrorHandler
     
     @property
     def db(self):
