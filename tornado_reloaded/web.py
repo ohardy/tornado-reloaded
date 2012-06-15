@@ -23,6 +23,7 @@ import time
 import tornado
 from tornado.web import RequestHandler as OriginalRequestHandler
 from tornado.web import StaticFileHandler as OriginalStaticFileHandler
+from tornado.web import HTTPError
 
 from tornado.ioloop import IOLoop
 from tornado.options import options
