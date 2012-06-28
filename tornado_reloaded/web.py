@@ -144,7 +144,7 @@ class RequestHandler(OriginalRequestHandler):
                 # except Exception as e:
                     # print 'E : ', e
         else:
-            super(BaseHandler, self).write_error(status_code, **kwargs)
+            super(RequestHandler, self).write_error(status_code, **kwargs)
     
     def before_initialize(self, **kwargs):
         """docstring for initialize"""
